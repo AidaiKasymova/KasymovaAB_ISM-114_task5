@@ -4,13 +4,13 @@
 using namespace std;
 
 /// <summary>
-/// Класс для описания исключения
+/// РљР»Р°СЃСЃ РґР»СЏ РѕРїРёСЃР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
 /// </summary>
 class Exception1 {};
 
 /// <summary>
-/// Класс для описания исключения
-/// с выводом сообщения об ошибке
+/// РљР»Р°СЃСЃ РґР»СЏ РѕРїРёСЃР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
+/// СЃ РІС‹РІРѕРґРѕРј СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± РѕС€РёР±РєРµ
 /// </summary>
 class Exception2
 {
@@ -21,8 +21,8 @@ public:
 };
 
 /// <summary>
-/// Класс-наследник с описанием исключения 
-/// (для указания неверного аргумента)
+/// РљР»Р°СЃСЃ-РЅР°СЃР»РµРґРЅРёРє СЃ РѕРїРёСЃР°РЅРёРµРј РёСЃРєР»СЋС‡РµРЅРёСЏ 
+/// (РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ РЅРµРІРµСЂРЅРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°)
 /// </summary>
 class Exception3 : public invalid_argument
 {
@@ -33,33 +33,33 @@ public:
 };
 
 /// <summary>
-/// Структура с описанием даты
+/// РЎС‚СЂСѓРєС‚СѓСЂР° СЃ РѕРїРёСЃР°РЅРёРµРј РґР°С‚С‹
 /// </summary>
 struct Date
 {
 	/// <summary>
-	/// День
+	/// Р”РµРЅСЊ
 	/// </summary>
 	int dd;
 
 	/// <summary>
-	/// Месяц
+	/// РњРµСЃСЏС†
 	/// </summary>
 	int mm;
 
 	/// <summary>
-	/// Год
+	/// Р“РѕРґ
 	/// </summary>
 	int yy;
 };
 
-// число дней в каждом из месяцев
+// С‡РёСЃР»Рѕ РґРЅРµР№ РІ РєР°Р¶РґРѕРј РёР· РјРµСЃСЏС†РµРІ
 const int monthDays[12]
 = { 31, 28, 31, 30, 31, 30,
    31, 31, 30, 31, 30, 31 };
 
 /// <summary>
-/// Считает число високосных лет с заданной даты
+/// РЎС‡РёС‚Р°РµС‚ С‡РёСЃР»Рѕ РІРёСЃРѕРєРѕСЃРЅС‹С… Р»РµС‚ СЃ Р·Р°РґР°РЅРЅРѕР№ РґР°С‚С‹
 /// </summary>
 int countLeapYears(const Date& d)
 {
@@ -72,12 +72,12 @@ int countLeapYears(const Date& d)
 }
 
 /// <summary>
-/// Считает количество дней между двумя датами
-/// (без спецификации исключений)
+/// РЎС‡РёС‚Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№ РјРµР¶РґСѓ РґРІСѓРјСЏ РґР°С‚Р°РјРё
+/// (Р±РµР· СЃРїРµС†РёС„РёРєР°С†РёРё РёСЃРєР»СЋС‡РµРЅРёР№)
 /// </summary>
-/// <param name="dt1">первая дата</param>
-/// <param name="dt2">вторая дата</param>
-/// <returns>число дней</returns>
+/// <param name="dt1">РїРµСЂРІР°СЏ РґР°С‚Р°</param>
+/// <param name="dt2">РІС‚РѕСЂР°СЏ РґР°С‚Р°</param>
+/// <returns>С‡РёСЃР»Рѕ РґРЅРµР№</returns>
 int getDifference1(Date& dt1, Date& dt2)
 {
 	if (dt1.dd < 1 || dt1.mm < 1 || dt1.yy < 1 ||
@@ -85,7 +85,7 @@ int getDifference1(Date& dt1, Date& dt2)
 		dt2.dd < 1 || dt2.mm < 1 || dt2.yy < 1 ||
 		dt2.dd > 31 || dt2.mm > 12 || dt2.yy > 2021 ||
 		cin.fail())
-		cerr << "Произошло исключение в функции getDifference1!" << endl;
+		cerr << "РџСЂРѕРёР·РѕС€Р»Рѕ РёСЃРєР»СЋС‡РµРЅРёРµ РІ С„СѓРЅРєС†РёРё getDifference1!" << endl;
 
 	long int n1 = dt1.yy * 365 + dt1.dd;
 
@@ -106,21 +106,21 @@ int getDifference1(Date& dt1, Date& dt2)
 }
 
 /// <summary>
-/// со спецификацией throw(invalid_argument)
+/// СЃРѕ СЃРїРµС†РёС„РёРєР°С†РёРµР№ throw(invalid_argument)
 /// </summary>
 int getDifference2(Date& dt1, Date& dt2) throw(invalid_argument)
 {
 	if (dt1.yy < 1 || dt1.yy > 2021 || dt2.yy < 1 || dt2.yy > 2021 ||
 		cin.fail())
-		throw invalid_argument("Год должен лежать в пределах от 1 до 2021!");
+		throw invalid_argument("Р“РѕРґ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 2021!");
 
 	if (dt1.mm < 1 || dt1.mm > 12 || dt2.mm < 1 || dt2.mm > 12 ||
 		cin.fail())
-		throw invalid_argument("Месяц должен лежать в пределах от 1 до 12!");
+		throw invalid_argument("РњРµСЃСЏС† РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 12!");
 
 	if (dt1.dd < 1 || dt1.dd > 31 || dt2.dd < 1 || dt2.dd > 31 || 
 		cin.fail())
-		throw invalid_argument("День должен лежать в пределах от 1 до 31!");
+		throw invalid_argument("Р”РµРЅСЊ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 31!");
 
 
 	long int n1 = dt1.yy * 365 + dt1.dd;
@@ -141,10 +141,10 @@ int getDifference2(Date& dt1, Date& dt2) throw(invalid_argument)
 	return diff;
 }
 
-// с собственным реализованным исключением:
+// СЃ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рј СЂРµР°Р»РёР·РѕРІР°РЅРЅС‹Рј РёСЃРєР»СЋС‡РµРЅРёРµРј:
 
 /// <summary>
-/// как пустой класс
+/// РєР°Рє РїСѓСЃС‚РѕР№ РєР»Р°СЃСЃ
 /// </summary>
 int getDifference3_1(Date& dt1, Date& dt2) throw(Exception1)
 {
@@ -180,21 +180,21 @@ int getDifference3_1(Date& dt1, Date& dt2) throw(Exception1)
 }
 
 /// <summary>
-/// с конкретной спецификацией с подходящим стандартным исключением
+/// СЃ РєРѕРЅРєСЂРµС‚РЅРѕР№ СЃРїРµС†РёС„РёРєР°С†РёРµР№ СЃ РїРѕРґС…РѕРґСЏС‰РёРј СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рј РёСЃРєР»СЋС‡РµРЅРёРµРј
 /// </summary>
 int getDifference3_2(Date& dt1, Date& dt2) throw(Exception2)
 {
 	if (dt1.yy < 1 || dt1.yy > 2021 || dt2.yy < 1 || dt2.yy > 2021 ||
 		cin.fail())
-		throw Exception2("Год должен лежать в пределах от 1 до 2021!");
+		throw Exception2("Р“РѕРґ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 2021!");
 
 	if (dt1.mm < 1 || dt1.mm > 12 || dt2.mm < 1 || dt2.mm > 12 ||
 		cin.fail())
-		throw Exception2("Месяц должен лежать в пределах от 1 до 12!");
+		throw Exception2("РњРµСЃСЏС† РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 12!");
 
 	if (dt1.dd < 1 || dt1.dd > 31 || dt2.dd < 1 || dt2.dd > 31 ||
 		cin.fail())
-		throw Exception2("День должен лежать в пределах от 1 до 31!");
+		throw Exception2("Р”РµРЅСЊ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 31!");
 
 
 	long int n1 = dt1.yy * 365 + dt1.dd;
@@ -216,33 +216,33 @@ int getDifference3_2(Date& dt1, Date& dt2) throw(Exception2)
 }
 
 /// <summary>
-/// спецификация с собственным реализованным исключением
+/// СЃРїРµС†РёС„РёРєР°С†РёСЏ СЃ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рј СЂРµР°Р»РёР·РѕРІР°РЅРЅС‹Рј РёСЃРєР»СЋС‡РµРЅРёРµРј
 /// </summary>
 int getDifference3_3(Date& dt1, Date& dt2) throw(Exception3)
 {
 	if (dt1.yy < 1 || dt1.yy > 2021 ||
 		cin.fail())
-		throw Exception3("Неверный аргумент ", dt1.yy);
+		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt1.yy);
 
 	if (dt2.yy < 1 || dt2.yy > 2021 ||
 		cin.fail())
-		throw Exception3("Неверный аргумент ", dt2.yy);
+		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt2.yy);
 
 	if (dt1.mm < 1 || dt1.mm > 12 ||
 		cin.fail())
-		throw Exception3("Неверный аргумент ", dt1.mm);
+		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt1.mm);
 
 	if (dt2.mm < 1 || dt2.mm > 12 ||
 		cin.fail())
-		throw Exception3("Неверный аргумент ", dt2.mm);
+		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt2.mm);
 
 	if (dt1.dd < 1 || dt1.dd > 31 ||
 		cin.fail())
-		throw Exception3("Неверный аргумент ", dt1.dd);
+		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt1.dd);
 
 	if (dt2.dd < 1 || dt2.dd > 31 ||
 		cin.fail())
-		throw Exception3("Неверный аргумент ", dt2.dd);
+		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt2.dd);
 
 	long int n1 = dt1.yy * 365 + dt1.dd;
 
@@ -266,23 +266,23 @@ void tryRun(int (*getDiff)(Date&, Date&))
 {
 	Date dt1, dt2;
 
-	cout << endl << "Дата 1." << endl;
-	cout << "Введите год: ";
+	cout << endl << "Р”Р°С‚Р° 1." << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РіРѕРґ: ";
 	cin >> dt1.yy;
-	cout << "Введите месяц: ";
+	cout << "Р’РІРµРґРёС‚Рµ РјРµСЃСЏС†: ";
 	cin >> dt1.mm;
-	cout << "Введите день: ";
+	cout << "Р’РІРµРґРёС‚Рµ РґРµРЅСЊ: ";
 	cin >> dt1.dd;
 
-	cout << endl << "Дата 2." << endl;
-	cout << "Введите год: ";
+	cout << endl << "Р”Р°С‚Р° 2." << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РіРѕРґ: ";
 	cin >> dt2.yy;
-	cout << "Введите месяц: ";
+	cout << "Р’РІРµРґРёС‚Рµ РјРµСЃСЏС†: ";
 	cin >> dt2.mm;
-	cout << "Введите день: ";
+	cout << "Р’РІРµРґРёС‚Рµ РґРµРЅСЊ: ";
 	cin >> dt2.dd;
 
-	cout << "Между датами прошло " << getDiff(dt1, dt2) << " дней." << endl;
+	cout << "РњРµР¶РґСѓ РґР°С‚Р°РјРё РїСЂРѕС€Р»Рѕ " << getDiff(dt1, dt2) << " РґРЅРµР№." << endl;
 }
 
 int main()
@@ -296,7 +296,7 @@ int main()
 	}
 	catch (...)
 	{
-		cout << "Произошло исключение в функции getDifference1!" << endl;
+		cout << "РџСЂРѕРёР·РѕС€Р»Рѕ РёСЃРєР»СЋС‡РµРЅРёРµ РІ С„СѓРЅРєС†РёРё getDifference1!" << endl;
 	}
 
 	try
@@ -314,7 +314,7 @@ int main()
 	}
 	catch (Exception1)
 	{
-		cout << "Произошло исключение Exception1 в функции getDifference3_1!" << endl;
+		cout << "РџСЂРѕРёР·РѕС€Р»Рѕ РёСЃРєР»СЋС‡РµРЅРёРµ Exception1 РІ С„СѓРЅРєС†РёРё getDifference3_1!" << endl;
 	}
 
 	try
