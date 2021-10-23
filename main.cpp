@@ -4,13 +4,13 @@
 using namespace std;
 
 /// <summary>
-/// РљР»Р°СЃСЃ РґР»СЏ РѕРїРёСЃР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
+/// Класс для описания исключения
 /// </summary>
 class Exception1 {};
 
 /// <summary>
-/// РљР»Р°СЃСЃ РґР»СЏ РѕРїРёСЃР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
-/// СЃ РІС‹РІРѕРґРѕРј СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± РѕС€РёР±РєРµ
+/// Класс для описания исключения
+/// с выводом сообщения об ошибке
 /// </summary>
 class Exception2
 {
@@ -21,8 +21,8 @@ public:
 };
 
 /// <summary>
-/// РљР»Р°СЃСЃ-РЅР°СЃР»РµРґРЅРёРє СЃ РѕРїРёСЃР°РЅРёРµРј РёСЃРєР»СЋС‡РµРЅРёСЏ 
-/// (РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ РЅРµРІРµСЂРЅРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°)
+/// Класс-наследник с описанием исключения 
+/// (для указания неверного аргумента)
 /// </summary>
 class Exception3 : public invalid_argument
 {
@@ -33,38 +33,38 @@ public:
 };
 
 /// <summary>
-/// РЎС‚СЂСѓРєС‚СѓСЂР° СЃ РѕРїРёСЃР°РЅРёРµРј РґР°С‚С‹
+/// Структура с описанием даты
 /// </summary>
 struct Date
 {
 	/// <summary>
-	/// Р”РµРЅСЊ
+	/// День
 	/// </summary>
-	int dd;
+	int day;
 
 	/// <summary>
-	/// РњРµСЃСЏС†
+	/// Месяц
 	/// </summary>
-	int mm;
+	int month;
 
 	/// <summary>
-	/// Р“РѕРґ
+	/// Год
 	/// </summary>
-	int yy;
+	int year;
 };
 
-// С‡РёСЃР»Рѕ РґРЅРµР№ РІ РєР°Р¶РґРѕРј РёР· РјРµСЃСЏС†РµРІ
+// число дней в каждом из месяцев
 const int monthDays[12]
 = { 31, 28, 31, 30, 31, 30,
    31, 31, 30, 31, 30, 31 };
 
 /// <summary>
-/// РЎС‡РёС‚Р°РµС‚ С‡РёСЃР»Рѕ РІРёСЃРѕРєРѕСЃРЅС‹С… Р»РµС‚ СЃ Р·Р°РґР°РЅРЅРѕР№ РґР°С‚С‹
+/// Считает число високосных лет с заданной даты
 /// </summary>
 int countLeapYears(const Date& d)
 {
-	int years = d.yy;
-	if (d.mm <= 2)
+	int years = d.year;
+	if (d.month <= 2)
 		years--;
 	return years / 4
 		- years / 100
@@ -72,107 +72,100 @@ int countLeapYears(const Date& d)
 }
 
 /// <summary>
-/// РЎС‡РёС‚Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№ РјРµР¶РґСѓ РґРІСѓРјСЏ РґР°С‚Р°РјРё
-/// (Р±РµР· СЃРїРµС†РёС„РёРєР°С†РёРё РёСЃРєР»СЋС‡РµРЅРёР№)
+/// Считает количество дней между двумя датами
+/// (без спецификации исключений)
 /// </summary>
-/// <param name="dt1">РїРµСЂРІР°СЏ РґР°С‚Р°</param>
-/// <param name="dt2">РІС‚РѕСЂР°СЏ РґР°С‚Р°</param>
-/// <returns>С‡РёСЃР»Рѕ РґРЅРµР№</returns>
-int getDifference1(Date& dt1, Date& dt2)
+/// <param name="date1">первая дата</param>
+/// <param name="date2">вторая дата</param>
+/// <returns>число дней</returns>
+int getDifference1(Date& date1, Date& date2)
 {
-	if (dt1.dd < 1 || dt1.mm < 1 || dt1.yy < 1 ||
-		dt1.dd > 31 || dt1.mm > 12 || dt1.yy > 2021 ||
-		dt2.dd < 1 || dt2.mm < 1 || dt2.yy < 1 ||
-		dt2.dd > 31 || dt2.mm > 12 || dt2.yy > 2021 ||
-		cin.fail())
-		cerr << "РџСЂРѕРёР·РѕС€Р»Рѕ РёСЃРєР»СЋС‡РµРЅРёРµ РІ С„СѓРЅРєС†РёРё getDifference1!" << endl;
+	if (date1.day < 1 || date1.month < 1 || date1.year < 1 ||
+		date1.day > 31 || date1.month > 12 || date1.year > 2021 ||
+		date2.day < 1 || date2.month < 1 || date2.year < 1 ||
+		date2.day > 31 || date2.month > 12 || date2.year > 2021)
 
-	long int n1 = dt1.yy * 365 + dt1.dd;
-
-	for (int i = 0; i < dt1.mm - 1; i++)
-		n1 += monthDays[i];
-
-	n1 += countLeapYears(dt1);
-
-	long int n2 = dt2.yy * 365 + dt2.dd;
+		throw "Произошло исключение в функции getDifference1!";
 	
-	for (int i = 0; i < dt2.mm - 1; i++)
-		n2 += monthDays[i];
-	n2 += countLeapYears(dt2);
+	long int n1 = date1.year * 365 + date1.day;
 
-	int diff = n2 - n1;
-
-	return diff;
-}
-
-/// <summary>
-/// СЃРѕ СЃРїРµС†РёС„РёРєР°С†РёРµР№ throw(invalid_argument)
-/// </summary>
-int getDifference2(Date& dt1, Date& dt2) throw(invalid_argument)
-{
-	if (dt1.yy < 1 || dt1.yy > 2021 || dt2.yy < 1 || dt2.yy > 2021 ||
-		cin.fail())
-		throw invalid_argument("Р“РѕРґ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 2021!");
-
-	if (dt1.mm < 1 || dt1.mm > 12 || dt2.mm < 1 || dt2.mm > 12 ||
-		cin.fail())
-		throw invalid_argument("РњРµСЃСЏС† РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 12!");
-
-	if (dt1.dd < 1 || dt1.dd > 31 || dt2.dd < 1 || dt2.dd > 31 || 
-		cin.fail())
-		throw invalid_argument("Р”РµРЅСЊ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 31!");
-
-
-	long int n1 = dt1.yy * 365 + dt1.dd;
-
-	for (int i = 0; i < dt1.mm - 1; i++)
+	for (int i = 0; i < date1.month - 1; i++)
 		n1 += monthDays[i];
 
-	n1 += countLeapYears(dt1);
+	n1 += countLeapYears(date1);
 
-	long int n2 = dt2.yy * 365 + dt2.dd;
-
-	for (int i = 0; i < dt2.mm - 1; i++)
+	long int n2 = date2.year * 365 + date2.day;
+	
+	for (int i = 0; i < date2.month - 1; i++)
 		n2 += monthDays[i];
-	n2 += countLeapYears(dt2);
+	n2 += countLeapYears(date2);
 
 	int diff = n2 - n1;
 
 	return diff;
 }
 
-// СЃ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рј СЂРµР°Р»РёР·РѕРІР°РЅРЅС‹Рј РёСЃРєР»СЋС‡РµРЅРёРµРј:
+/// <summary>
+/// со спецификацией throw(invalid_argument)
+/// </summary>
+int getDifference2(Date& date1, Date& date2) throw(invalid_argument)
+{
+	if (date1.year < 1 || date1.year > 2021 || date2.year < 1 || date2.year > 2021)
+		throw invalid_argument("Год должен лежать в пределах от 1 до 2021!");
+
+	if (date1.month < 1 || date1.month > 12 || date2.month < 1 || date2.month > 12)
+		throw invalid_argument("Месяц должен лежать в пределах от 1 до 12!");
+
+	if (date1.day < 1 || date1.day > 31 || date2.day < 1 || date2.day > 31)
+		throw invalid_argument("День должен лежать в пределах от 1 до 31!");
+
+
+	long int n1 = date1.year * 365 + date1.day;
+
+	for (int i = 0; i < date1.month - 1; i++)
+		n1 += monthDays[i];
+
+	n1 += countLeapYears(date1);
+
+	long int n2 = date2.year * 365 + date2.day;
+
+	for (int i = 0; i < date2.month - 1; i++)
+		n2 += monthDays[i];
+	n2 += countLeapYears(date2);
+
+	int diff = n2 - n1;
+
+	return diff;
+}
+
+// с собственным реализованным исключением:
 
 /// <summary>
-/// РєР°Рє РїСѓСЃС‚РѕР№ РєР»Р°СЃСЃ
+/// как пустой класс
 /// </summary>
-int getDifference3_1(Date& dt1, Date& dt2) throw(Exception1)
+int getDifference3_1(Date& date1, Date& date2) throw(Exception1)
 {
-	if (dt1.yy < 1 || dt1.yy > 2021 || dt2.yy < 1 || dt2.yy > 2021 ||
-		cin.fail())
+	if (date1.year < 1 || date1.year > 2021 || date2.year < 1 || date2.year > 2021)
 		throw Exception1();
 
-	if (dt1.mm < 1 || dt1.mm > 12 || dt2.mm < 1 || dt2.mm > 12 ||
-		cin.fail())
+	if (date1.month < 1 || date1.month > 12 || date2.month < 1 || date2.month > 12)
 		throw Exception1();
 
-	if (dt1.dd < 1 || dt1.dd > 31 || dt2.dd < 1 || dt2.dd > 31 ||
-		cin.fail())
+	if (date1.day < 1 || date1.day > 31 || date2.day < 1 || date2.day > 31)
 		throw Exception1();
 
+	long int n1 = date1.year * 365 + date1.day;
 
-	long int n1 = dt1.yy * 365 + dt1.dd;
-
-	for (int i = 0; i < dt1.mm - 1; i++)
+	for (int i = 0; i < date1.month - 1; i++)
 		n1 += monthDays[i];
 
-	n1 += countLeapYears(dt1);
+	n1 += countLeapYears(date1);
 
-	long int n2 = dt2.yy * 365 + dt2.dd;
+	long int n2 = date2.year * 365 + date2.day;
 
-	for (int i = 0; i < dt2.mm - 1; i++)
+	for (int i = 0; i < date2.month - 1; i++)
 		n2 += monthDays[i];
-	n2 += countLeapYears(dt2);
+	n2 += countLeapYears(date2);
 
 	int diff = n2 - n1;
 
@@ -180,35 +173,32 @@ int getDifference3_1(Date& dt1, Date& dt2) throw(Exception1)
 }
 
 /// <summary>
-/// СЃ РєРѕРЅРєСЂРµС‚РЅРѕР№ СЃРїРµС†РёС„РёРєР°С†РёРµР№ СЃ РїРѕРґС…РѕРґСЏС‰РёРј СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рј РёСЃРєР»СЋС‡РµРЅРёРµРј
+/// с конкретной спецификацией с подходящим стандартным исключением
 /// </summary>
-int getDifference3_2(Date& dt1, Date& dt2) throw(Exception2)
+int getDifference3_2(Date& date1, Date& date2) throw(Exception2)
 {
-	if (dt1.yy < 1 || dt1.yy > 2021 || dt2.yy < 1 || dt2.yy > 2021 ||
-		cin.fail())
-		throw Exception2("Р“РѕРґ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 2021!");
+	if (date1.year < 1 || date1.year > 2021 || date2.year < 1 || date2.year > 2021)
+		throw Exception2("Год должен лежать в пределах от 1 до 2021!");
 
-	if (dt1.mm < 1 || dt1.mm > 12 || dt2.mm < 1 || dt2.mm > 12 ||
-		cin.fail())
-		throw Exception2("РњРµСЃСЏС† РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 12!");
+	if (date1.month < 1 || date1.month > 12 || date2.month < 1 || date2.month > 12)
+		throw Exception2("Месяц должен лежать в пределах от 1 до 12!");
 
-	if (dt1.dd < 1 || dt1.dd > 31 || dt2.dd < 1 || dt2.dd > 31 ||
-		cin.fail())
-		throw Exception2("Р”РµРЅСЊ РґРѕР»Р¶РµРЅ Р»РµР¶Р°С‚СЊ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 1 РґРѕ 31!");
+	if (date1.day < 1 || date1.day > 31 || date2.day < 1 || date2.day > 31)
+		throw Exception2("День должен лежать в пределах от 1 до 31!");
 
 
-	long int n1 = dt1.yy * 365 + dt1.dd;
+	long int n1 = date1.year * 365 + date1.day;
 
-	for (int i = 0; i < dt1.mm - 1; i++)
+	for (int i = 0; i < date1.month - 1; i++)
 		n1 += monthDays[i];
 
-	n1 += countLeapYears(dt1);
+	n1 += countLeapYears(date1);
 
-	long int n2 = dt2.yy * 365 + dt2.dd;
+	long int n2 = date2.year * 365 + date2.day;
 
-	for (int i = 0; i < dt2.mm - 1; i++)
+	for (int i = 0; i < date2.month - 1; i++)
 		n2 += monthDays[i];
-	n2 += countLeapYears(dt2);
+	n2 += countLeapYears(date2);
 
 	int diff = n2 - n1;
 
@@ -216,46 +206,40 @@ int getDifference3_2(Date& dt1, Date& dt2) throw(Exception2)
 }
 
 /// <summary>
-/// СЃРїРµС†РёС„РёРєР°С†РёСЏ СЃ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рј СЂРµР°Р»РёР·РѕРІР°РЅРЅС‹Рј РёСЃРєР»СЋС‡РµРЅРёРµРј
+/// спецификация с собственным реализованным исключением
 /// </summary>
-int getDifference3_3(Date& dt1, Date& dt2) throw(Exception3)
+int getDifference3_3(Date& date1, Date& date2) throw(Exception3)
 {
-	if (dt1.yy < 1 || dt1.yy > 2021 ||
-		cin.fail())
-		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt1.yy);
+	if (date1.year < 1 || date1.year > 2021)
+		throw Exception3("Неверный аргумент ", date1.year);
 
-	if (dt2.yy < 1 || dt2.yy > 2021 ||
-		cin.fail())
-		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt2.yy);
+	if (date2.year < 1 || date2.year > 2021)
+		throw Exception3("Неверный аргумент ", date2.year);
 
-	if (dt1.mm < 1 || dt1.mm > 12 ||
-		cin.fail())
-		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt1.mm);
+	if (date1.month < 1 || date1.month > 12)
+		throw Exception3("Неверный аргумент ", date1.month);
 
-	if (dt2.mm < 1 || dt2.mm > 12 ||
-		cin.fail())
-		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt2.mm);
+	if (date2.month < 1 || date2.month > 12)
+		throw Exception3("Неверный аргумент ", date2.month);
 
-	if (dt1.dd < 1 || dt1.dd > 31 ||
-		cin.fail())
-		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt1.dd);
+	if (date1.day < 1 || date1.day > 31)
+		throw Exception3("Неверный аргумент ", date1.day);
 
-	if (dt2.dd < 1 || dt2.dd > 31 ||
-		cin.fail())
-		throw Exception3("РќРµРІРµСЂРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ ", dt2.dd);
+	if (date2.day < 1 || date2.day > 31)
+		throw Exception3("Неверный аргумент ", date2.day);
 
-	long int n1 = dt1.yy * 365 + dt1.dd;
+	long int n1 = date1.year * 365 + date1.day;
 
-	for (int i = 0; i < dt1.mm - 1; i++)
+	for (int i = 0; i < date1.month - 1; i++)
 		n1 += monthDays[i];
 
-	n1 += countLeapYears(dt1);
+	n1 += countLeapYears(date1);
 
-	long int n2 = dt2.yy * 365 + dt2.dd;
+	long int n2 = date2.year * 365 + date2.day;
 
-	for (int i = 0; i < dt2.mm - 1; i++)
+	for (int i = 0; i < date2.month - 1; i++)
 		n2 += monthDays[i];
-	n2 += countLeapYears(dt2);
+	n2 += countLeapYears(date2);
 
 	int diff = n2 - n1;
 
@@ -264,25 +248,25 @@ int getDifference3_3(Date& dt1, Date& dt2) throw(Exception3)
 
 void tryRun(int (*getDiff)(Date&, Date&))
 {
-	Date dt1, dt2;
+	Date date1, date2;
 
-	cout << endl << "Р”Р°С‚Р° 1." << endl;
-	cout << "Р’РІРµРґРёС‚Рµ РіРѕРґ: ";
-	cin >> dt1.yy;
-	cout << "Р’РІРµРґРёС‚Рµ РјРµСЃСЏС†: ";
-	cin >> dt1.mm;
-	cout << "Р’РІРµРґРёС‚Рµ РґРµРЅСЊ: ";
-	cin >> dt1.dd;
+	cout << endl << "Дата 1." << endl;
+	cout << "Введите год: ";
+	cin >> date1.year;
+	cout << "Введите месяц: ";
+	cin >> date1.month;
+	cout << "Введите день: ";
+	cin >> date1.day;
 
-	cout << endl << "Р”Р°С‚Р° 2." << endl;
-	cout << "Р’РІРµРґРёС‚Рµ РіРѕРґ: ";
-	cin >> dt2.yy;
-	cout << "Р’РІРµРґРёС‚Рµ РјРµСЃСЏС†: ";
-	cin >> dt2.mm;
-	cout << "Р’РІРµРґРёС‚Рµ РґРµРЅСЊ: ";
-	cin >> dt2.dd;
+	cout << endl << "Дата 2." << endl;
+	cout << "Введите год: ";
+	cin >> date2.year;
+	cout << "Введите месяц: ";
+	cin >> date2.month;
+	cout << "Введите день: ";
+	cin >> date2.day;
 
-	cout << "РњРµР¶РґСѓ РґР°С‚Р°РјРё РїСЂРѕС€Р»Рѕ " << getDiff(dt1, dt2) << " РґРЅРµР№." << endl;
+	cout << "Между датами прошло " << getDiff(date1, date2) << " дней." << endl;
 }
 
 int main()
@@ -296,7 +280,7 @@ int main()
 	}
 	catch (...)
 	{
-		cout << "РџСЂРѕРёР·РѕС€Р»Рѕ РёСЃРєР»СЋС‡РµРЅРёРµ РІ С„СѓРЅРєС†РёРё getDifference1!" << endl;
+		cout << "Произошло исключение в функции getDifference1!" << endl;
 	}
 
 	try
@@ -314,7 +298,7 @@ int main()
 	}
 	catch (Exception1)
 	{
-		cout << "РџСЂРѕРёР·РѕС€Р»Рѕ РёСЃРєР»СЋС‡РµРЅРёРµ Exception1 РІ С„СѓРЅРєС†РёРё getDifference3_1!" << endl;
+		cout << "Произошло исключение Exception1 в функции getDifference3_1!" << endl;
 	}
 
 	try
